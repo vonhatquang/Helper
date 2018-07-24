@@ -8,14 +8,14 @@ using Newtonsoft.Json.Linq;
 
 namespace WebApiHelper
 {
-    public class WebApiHelper
+    public class WebApiClient
     {
 
         private WebApiSetting _webApiSetting;
         private HttpClient _client;
         private string _webApiController;
         private string _webApiAction;
-        public WebApiHelper(WebApiSetting webApiSetting)
+        public WebApiClient(WebApiSetting webApiSetting)
         {
             this._webApiSetting = webApiSetting;
         }
