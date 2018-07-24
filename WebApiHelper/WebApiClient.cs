@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace WebApiClient
+namespace WebApiHelper
 {
-    public class WebApiClient
+    public class WebApiHelper
     {
 
         private WebApiSetting _webApiSetting;
         private HttpClient _client;
         private string _webApiController;
         private string _webApiAction;
-        public WebApiClient(WebApiSetting webApiSetting)
+        public WebApiHelper(WebApiSetting webApiSetting)
         {
             this._webApiSetting = webApiSetting;
         }

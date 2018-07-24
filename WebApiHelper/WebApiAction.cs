@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApiClient
+namespace WebApiHelper
 {
     public class WebApiAction
     {
