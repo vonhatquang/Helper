@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Helper.WebApi
+namespace Helper
 {
     public class ApiParameter
     {

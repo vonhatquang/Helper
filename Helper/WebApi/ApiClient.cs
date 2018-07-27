@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Helper.WebApi
+namespace Helper
 {
     public class ApiClient
     {
