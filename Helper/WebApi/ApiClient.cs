@@ -6,41 +6,41 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace WebApiHelper
+namespace Helper.WebApi
 {
-    public class WebApiClient
+    public class ApiClient
     {
 
-        private WebApiSetting _webApiSetting;
+        private ApiSetting _apiSetting;
         private HttpClient _client;
-        private string _webApiController;
-        private string _webApiAction;
-        public WebApiClient(WebApiSetting webApiSetting)
+        private string _apiController;
+        private string _apiAction;
+        public ApiClient(ApiSetting apiSetting)
         {
-            this._webApiSetting = webApiSetting;
+            this._apiSetting = apiSetting;
         }
 
         public void InitializeClient(string webApiCaller)
         {
             string[] stringSeparators = new string[] { "_" };
-            this._webApiController = webApiCaller.Split(stringSeparators, StringSplitOptions.None)[0];
-            this._webApiAction = webApiCaller.Split(stringSeparators, StringSplitOptions.None)[1];
+            this._apiController = webApiCaller.Split(stringSeparators, StringSplitOptions.None)[0];
+            this._apiAction = webApiCaller.Split(stringSeparators, StringSplitOptions.None)[1];
             this._client = new HttpClient();
             //Passing service base url    
-            this._client.BaseAddress = new Uri(this._webApiSetting.WebApiUrl.ToString());
+            this._client.BaseAddress = new Uri(this._apiSetting.WebApiUrl.ToString());
 
             this._client.DefaultRequestHeaders.Clear();
             //Define request data format    
             this._client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        private string MakeApiUri(List<WebApiParameter> parameters = null)
+        private string MakeApiUri(List<ApiParameter> parameters = null)
         {
-            WebApiController webApiController = this._webApiSetting.WebApiControllers.Find(x => x.Name == this._webApiController);
-            WebApiAction webApiAction = webApiController.WebApiActions.Find(x => x.Name == this._webApiAction);
+            ApiController webApiController = this._apiSetting.WebApiControllers.Find(x => x.Name == this._apiController);
+            ApiAction webApiAction = webApiController.WebApiActions.Find(x => x.Name == this._apiAction);
             //List<WebApiParameter> parameters = webApiAction.Parameters;
             string returnValue = "";
-            returnValue += this._webApiSetting.WebApiPrefix;
+            returnValue += this._apiSetting.WebApiPrefix;
             returnValue += "/" + webApiController.Name;
             returnValue += "/" + webApiAction.Name;
             if (parameters != null)
@@ -71,12 +71,12 @@ namespace WebApiHelper
         }
 
         /*private string MakeApiUri(WebApiParameter parameter = null){
-            WebApiCaller webApiCaller = this._webApiSetting.WebApiCallers.Find(x => x.Name == this._webApiCaller);
+            WebApiCaller webApiCaller = this._apiSetting.WebApiCallers.Find(x => x.Name == this._apiCaller);
             WebApiController webApiController = webApiCaller.Controller;
             WebApiAction webApiAction = webApiController.Action;
             //List<WebApiParameter> parameters = webApiAction.Parameters;
             string returnValue = "";
-            returnValue += this._webApiSetting.WebApiPrefix;
+            returnValue += this._apiSetting.WebApiPrefix;
             returnValue += "/" + webApiController.Name;
             returnValue += "/" + webApiAction.Name;
             if( parameter != null){
@@ -86,19 +86,19 @@ namespace WebApiHelper
         }*/
 
         /*private string MakePostApi(){
-            WebApiCaller webApiCaller = this._webApiSetting.WebApiCallers.Find(x => x.Name == this._webApiCaller);
+            WebApiCaller webApiCaller = this._apiSetting.WebApiCallers.Find(x => x.Name == this._apiCaller);
             WebApiController webApiController = webApiCaller.Controller;
             WebApiAction webApiAction = webApiController.Action;
             List<WebApiParameter> parameters = webApiAction.Parameters;
             string returnValue = "";
-            returnValue += this._webApiSetting.WebApiPrefix;
+            returnValue += this._apiSetting.WebApiPrefix;
             returnValue += "/" + webApiController.Name;
             returnValue += "/" + webApiAction.Name;
             returnValue += parameterValue;
             return returnValue;
         }*/
 
-        public async Task<List<T>> List<T>(List<WebApiParameter> parameters = null)
+        public async Task<List<T>> List<T>(List<ApiParameter> parameters = null)
         {
             HttpResponseMessage res = await this._client.GetAsync(MakeApiUri(parameters));
 
@@ -115,7 +115,7 @@ namespace WebApiHelper
             return default(List<T>);
         }
 
-        public async Task<T> Get<T>(List<WebApiParameter> parameters = null)
+        public async Task<T> Get<T>(List<ApiParameter> parameters = null)
         {
             HttpResponseMessage res = await this._client.GetAsync(MakeApiUri(parameters));
             //Checking the response is successful or not which is sent using HttpClient    
@@ -172,7 +172,7 @@ namespace WebApiHelper
             return JsonConvert.DeserializeObject<T>(returnVal);
         }
 
-        public async Task<T> Put<T>(List<WebApiParameter> parameters, T putItem)
+        public async Task<T> Put<T>(List<ApiParameter> parameters, T putItem)
         {
             string stringData = JsonConvert.SerializeObject(putItem);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
@@ -182,7 +182,7 @@ namespace WebApiHelper
             return JsonConvert.DeserializeObject<T>(returnVal);
         }
 
-        public async Task<string> Delete(List<WebApiParameter> parameters)
+        public async Task<string> Delete(List<ApiParameter> parameters)
         {
             HttpResponseMessage res = await this._client.DeleteAsync(MakeApiUri(parameters));
             //res.EnsureSuccessStatusCode();

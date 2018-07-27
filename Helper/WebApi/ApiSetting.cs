@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApiHelper
+namespace Helper.WebApi
 {
-    public class WebApiSetting
+    public class ApiSetting
     {
         public string WebApiUrl { get; set; }
         public string WebApiPrefix { get; set; }
-        public List<WebApiController> WebApiControllers { get; set; }
+        public List<ApiController> WebApiControllers { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApiHelper
+namespace Helper.WebApi
 {
-    public class WebApiParameter
+    public class ApiController
     {
         public string Name { get; set; }
-        public string Value { get; set; }
+        public List<ApiAction> WebApiActions { get; set; }
     }
 }

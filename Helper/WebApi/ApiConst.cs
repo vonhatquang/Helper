@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApiHelper
+namespace Helper.WebApi
 {
-    public static class WebApiConst
+    public static class ApiConst
     {
         public static string VALUES_LISTCUSTOM = "Values_ListCustom";
         public static string VALUES_GETCUSTOM = "Values_GetCustom";
